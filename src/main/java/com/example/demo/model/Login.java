@@ -45,9 +45,9 @@ public class Login implements Serializable, ValidationUser {
     Set<AuctionProduct> auctionProducts = new HashSet<>();
 
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "auction_id")
-    List<AuctionProduct> soldProducts = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "sold", joinColumns = @JoinColumn(name = "auction_id"))
+    Set<AuctionProduct> soldProducts = new HashSet<>();
 
 
     public Set<AuctionProduct> getAuctionProducts() {
@@ -106,6 +106,15 @@ public class Login implements Serializable, ValidationUser {
     public void setConfrimPassword(String confrimPassword) {
         if (confrimPassword.equals(this.password))
             this.confrimPassword = confrimPassword;
+    }
+
+
+    public Set<AuctionProduct> getSoldProducts() {
+        return soldProducts;
+    }
+
+    public void setSoldProducts(Set<AuctionProduct> soldProducts) {
+        this.soldProducts = soldProducts;
     }
 
     public void addAuction(AuctionProduct auctionProduct){

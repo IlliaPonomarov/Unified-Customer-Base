@@ -41,6 +41,11 @@ public class AuctionProduct
     public AuctionProduct() {
     }
 
+    public AuctionProduct(Double finishPrice, String finishDate, Map<Double, Login> participantsAuction) {
+        this.finishPrice = finishPrice;
+        this.finishDate = finishDate;
+        this.participantsAuction = participantsAuction;
+    }
 
     public void iterate(){
         for (Map.Entry<Double, Login> part: this.participantsAuction.entrySet())

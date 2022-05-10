@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Auction.AuctionProduct;
 import com.example.demo.model.Login;
+import com.example.demo.service.detailsService.AuctionProductDetailService;
 import com.example.demo.service.detailsService.LoginDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,10 @@ public class MenuController {
     private LoginDetailsService loginDetailsService;
 
     @Autowired
+    private AuctionProductDetailService auctionProductDetailService;
+
+
+    @Autowired
     public MenuController(LoginDetailsService loginDetailsService) {
         this.loginDetailsService = loginDetailsService;
     }
@@ -26,6 +32,15 @@ public class MenuController {
 
         Login user = loginDetailsService.findUserByUsername(principal.getName());
         model.addAttribute("user", user);
+
+        Long id = 53L;
+        AuctionProduct auctionProduct = auctionProductDetailService.findById(id);
+
+        user.getSoldProducts().remove(auctionProduct);
+
+        model.addAttribute("items", user.getSoldProducts());
+
+
 
         return "/userController/MyItems";
     }
