@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Product</title>
+    <link rel="icon" href="img/fav.png" type="image/x-icon">
+    <style>
+        .center-time{
+            position:relative;
+            left:120px;
+            top:2px
+        }
+    </style>
+
+    <link href="/css/userCSS/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/ionicons/css/ionicons.min.css" rel="stylesheet">
+
+    <link href="/css/userCSS/style.css" rel="stylesheet">
+
+    <script src="/js/userJS/modernizr.js"></script>
+
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="pre-container">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+    </div>
+    <!-- end Preloader -->
+
+    <div class="container-fluid">
+       <!-- box-header -->
+        <header class="box-header">
+            <div class="box-logo">
+                <a th:href="@{/user/}"><img src="/photo/logo-pepe.jpg" width="80" alt="Logo"></a>
+            </div>
+            <!-- box-nav -->
+            <a class="box-primary-nav-trigger" href="#0">
+                <span class="box-menu-text">Menu</span><span class="box-menu-icon"></span>
+            </a>
+
+        </header>
+
+        <nav>
+            <ul class="box-primary-nav">
+                <li class="box-label">About me</li>
+
+                <li><a href="index.html">Intro</a></li>
+                <li><a href="about.html">About me</a></li>
+                <li><a href="MyItems.html">services</a></li>
+                <li><a href="portfolio.html">portfolio</a> <i class="ion-ios-circle-filled color"></i></li>
+                <li><a href="contact.html">contact me</a></li>
+
+
+
+                <li class="box-label">Follow me</li>
+
+                <li class="box-social"><a href="#0"><i class="ion-social-facebook"></i></a></li>
+                <li class="box-social"><a href="#0"><i class="ion-social-instagram-outline"></i></a></li>
+                <li class="box-social"><a href="#0"><i class="ion-social-twitter"></i></a></li>
+                <li class="box-social"><a href="#0"><i class="ion-social-dribbble"></i></a></li>
+            </ul>
+        </nav>
+        <!-- end nav -->
+    </div>
+    
+    <!-- top-bar -->
+    <div class="top-bar">
+        <h1 th:text="${item.name}">project title</h1>
+        <p><a href="#">Home</a> / <a href="#">portfolio</a> / project title</p>
+    </div>
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mt-5">
+                <div class="center-time">
+                <div class="rounded bg-gradient text-white shadow p-5 text-center mb-5">
+                    <h3 class="mb-0 font-weight-bold text-uppercase">End of Auction</h3>
+                    <div id="clock" class="countdown pt-4">
+
+                        <div style="width: 100%; display: table;">
+                            <div style="display: table-row">
+                                <div style="display: table-cell;" class="countdown-el days-c">
+                                    <p class="big-text h1 font-weight-bold" id="days">0</p>
+                                    <span class="h1 font-weight-bold">days</span>
+                                </div>
+                                <div style="display: table-cell;" class="countdown-el hours-c">
+                                    <p class="big-text h1 font-weight-bold" id="hours">0</p>
+                                    <span class="h1 font-weight-bold">hours</span>
+                                </div>
+                                <div style="display: table-cell;" class="countdown-el mins-c">
+                                    <p class="big-text h1 font-weight-bold" id="mins">0</p>
+                                    <span class="h1 font-weight-bold">mins</span>
+                                </div>
+                                <div style="display: table-cell;" class="countdown-el seconds-c">
+                                    <p class="big-text h1 font-weight-bold" id="seconds">0</p>
+                                    <span class="h1 font-weight-bold">seconds</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container main-container">
+
+
+
+        <div style="width: 100%; display: table;">
+            <div style="display: table-row">
+                <div class="col-md-12">
+                <img th:src="'/photo/img/products/'  + ${item.photo}" alt="" class="img-responsive" />
+                <div class="h-30"></div>
+            </div>
+
+            <div class="col-md-12">
+                <h3 th:text="${item.name}" class="text-uppercase"></h3>
+                <h5>Creative & Lorem ipsum dolor sit amet</h5>
+                <div class="h-30"></div>
+            </div>
+
+            <div class="col-md-9">
+                <h2>Description</h2>
+                <p th:text="${item.description}"></p>
+            </div>
+
+            <div class="col-md-6">
+                <h3>Actually Price</h3>
+                <h4 th:text="${item.price} + ' $'"></h4>
+                <br/>
+
+                <h4 th:text="${lastUser}"></h4>
+
+            </div>
+
+<!--                <div th:if="${item.price} > ${currentUser.money}" th:text="You have less money then price of this product"></div>-->
+
+                <form th:method="POST" th:action="@{'/user/product/' + ${item.id}}">
+                    <input name="newPrice"  type="text" class="form-control"  placeholder="Input your price"  aria-describedby="inputGroup-sizing-default"><br/>
+                    <input th:if="${errorMessage}" type="submit" class="btn btn-warning"  value="Accept"/>
+`
+                </form>
+            </div>
+
+            <div class="col-md-3">
+                <a th:href="@{'/user/product/' + ${item.id}}" class="portfolio_item"></a>
+            </div>
+
+<!--            <div class="col-md-3">-->
+<!--                <ul class="cat-ul" th:each="">-->
+<!--                    <li><i class="ion-ios-circle-filled"></i> Design</li>-->
+<!--                    <li><i class="ion-ios-circle-filled"></i> consectetur adipiscing</li>-->
+<!--                    <li><i class="ion-ios-circle-filled"></i> et gubernationis</li>-->
+<!--                    <li><i class="ion-ios-circle-filled"></i> Aliter enim nosmet</li>-->
+<!--                </ul>-->
+<!--                <div class="h-10"></div>-->
+<!--                <h4>Share</h4>-->
+<!--                <ul class="social-ul">-->
+
+<!--                    <li class="box-social"><a href="#0"><i class="ion-social-facebook"></i></a></li>-->
+<!--                    <li class="box-social"><a href="#0"><i class="ion-social-instagram-outline"></i></a></li>-->
+<!--                    <li class="box-social"><a href="#0"><i class="ion-social-twitter"></i></a></li>-->
+<!--                    <li class="box-social"><a href="#0"><i class="ion-social-dribbble"></i></a></li>-->
+<!--                </ul>-->
+<!--            </div>-->
+            </div>
+        </div>
+
+    <!-- end main-container -->
+
+
+    <!-- footer -->
+    <footer>
+        <div class="container-fluid">
+            <p class="copyright">© Auction OOP 2022</p>
+        </div>
+    </footer>
+    <!-- end footer -->
+    
+    <!-- back to top -->
+    <a href="#0" class="cd-top"><i class="ion-android-arrow-up"></i></a>
+    <!-- end back to top -->
+
+
+
+
+    <!-- jQuery -->
+    <script src="/js/userJS/jquery-2.1.1.js"></script>
+    <!--  plugins -->
+    <script src="/js/userJS/bootstrap.min.js"></script>
+    <script src="/js/userJS/menu.js"></script>
+    <script src="/js/userJS/animated-headline.js"></script>
+    <script src="/js/userJS/isotope.pkgd.min.js"></script>
+
+    <script th:inline="javascript">
+        const daysEl = document.getElementById("days");
+        const hoursEl = document.getElementById("hours");
+        const minsEl = document.getElementById("mins");
+        const secondsEl = document.getElementById("seconds");
+
+        const newYears = [[${endDate}]]
+
+        console.log(newYears)
+        console.log("Hello")
+
+        function countdown() {
+
+            const newYearsDate = new Date(newYears);
+            const currentDate = new Date();
+
+            const totalSeconds = (newYearsDate - currentDate) / 1000;
+
+            const days = Math.floor(totalSeconds / 3600 / 24);
+            const hours = Math.floor(totalSeconds / 3600) % 24;
+            const mins = Math.floor(totalSeconds / 60) % 60;
+            const seconds = Math.floor(totalSeconds) % 60;
+
+            daysEl.innerHTML = days;
+            hoursEl.innerHTML = formatTime(hours);
+            minsEl.innerHTML = formatTime(mins);
+            secondsEl.innerHTML = formatTime(seconds);
+        }
+
+
+        function formatTime(time) {
+            return time < 10 ? `0${time}` : time;
+        }
+
+        // initial call
+        countdown();
+
+        setInterval(countdown, 1000);
+
+    </script>
+
+
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+    <script src="/js/userJS/custom.js"></script>
+
+
+ <script th:inline="javascript">
+     const btn = document.getElementById("accessBTN");
+
+     function clickBtn(){
+        btn.disabled = true;
+
+        setTimeout( () => {
+            btn.disabled = false;
+
+        }, 10000);
+       //  window.location.href="/user/product/" +[[${item.id}]]
+
+         return [[${item.id}]];
+     }
+
+ </script>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-76796224-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+#pepe{
+    width: 300px;
+    height: 400px;
+}
+
+.icons{
+    width: 18px;
+    height: 18px;
+}
+
+.password_icon{
+    background: url("../icons/password_icon.svg") no-repeat;
+}

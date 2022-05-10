@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Please sign in</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
+    <link type="text/css" rel="stylesheet" href="../css/login.css">
+</head>
+    <body>
+        <div class="container">
+            <div class="card-body p-md-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+            <form class="form-signin" method="post" th:action="@{/login}">
+                <div>
+                  <h2 class="form-signin-heading">Please sign in</h2>
+
+                    <div  class="lead">
+                        <div id="p-error" th:if="${param.error}">
+                            <p>Invalid username or password.</p>
+                        </div>
+                        <div id="p-error" th:if="${param.logout}">
+                            <p>You have been logged out.</p>
+                        </div>
+                    </div>
+
+                    <br/>
+                </div>
+                <p>
+                    <label for="username" class="sr-only">Username</label>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+                </p>
+                <p>
+                    <label for="password" class="sr-only">Password</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                </p>
+                <input name="_csrf" type="hidden" value="459f0897-533a-4223-97d2-e4821d0b9c7f" />
+                <button class="btn bg-dark text-light btn-block" type="submit">Sign in</button><br/>
+                <p><a class="btn btn-secondary bg-dark" th:href="@{/registration/add}" role="button">Registration &raquo;</a></p>
+            </form>
+        </div>
+
+
+
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <div class="logo"></div>
+    <div class="login-block">
+    </div>
+    </body>
+</html>

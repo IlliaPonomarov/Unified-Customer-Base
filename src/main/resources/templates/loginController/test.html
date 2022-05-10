@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h2 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h2>
+
+    <div th:each="item : ${items}">
+        <p th:text="'Name: ' + ${item.name}"></p>
+        <img th:src="'/photo/img/products/'+${item.photo}">
+        <p th:text="'Start Price: ' + ${item.price}"></p>
+        <p th:text="'Finish Price: ' + ${item.finishPrice}"></p>
+        <p th:text="'Finish Date:' + ${item.finishDate}"></p>
+        <p th:text="'------------------------'"></p>
+    </div>
+
+</body>
+</html>

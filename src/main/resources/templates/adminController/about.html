@@ -1,0 +1,72 @@
+
+
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>Welcome [[${#httpServletRequest.remoteUser}]]</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/">
+
+    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="jumbotron.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+
+<div th:insert="header-footer-admin/header-admin.html"></div>
+
+<main role="main">
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <h1 th:inline="text">Information about "[[${#httpServletRequest.remoteUser}]]"</h1><br/><br/>
+
+            <table class="table table-bordered table-dark" style="border: 2px solid black">
+                <thead>
+
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">Username</th>
+                    <td th:text="${admin.getUsername()}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Email</th>
+                    <td th:text="${admin.getEmail()}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Phone Number</th>
+                    <td th:text="${admin.getPhoneNumber()}"></td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>
+
+<div th:insert="header-footer-admin/footer-admin.html">
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="../../assets/js/vendor/popper.min.js"></script>
+<script src="../../dist/js/bootstrap.min.js"></script>
+</body>
+</html>
