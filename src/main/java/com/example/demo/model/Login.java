@@ -117,6 +117,11 @@ public class Login implements Serializable, ValidationUser {
         this.soldProducts = soldProducts;
     }
 
+    public void deleteById(Long id){
+
+        this.getSoldProducts().removeIf(a -> a.getId().equals(id));
+    }
+
     public void addAuction(AuctionProduct auctionProduct){
         auctionProducts.add(auctionProduct);
     }

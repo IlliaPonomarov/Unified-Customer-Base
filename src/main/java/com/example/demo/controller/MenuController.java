@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
@@ -44,4 +46,30 @@ public class MenuController {
 
         return "/userController/MyItems";
     }
+
+
+    @GetMapping("/items/{id}")
+    public String soldItems(@PathVariable Long id, Model model){
+        AuctionProduct auctionProduct = auctionProductDetailService.findById(id);
+
+        model.addAttribute("item", auctionProduct);
+
+        return "/userController/soldProduct";
+    }
+
+
+    @PostMapping("/items/{id}")
+    public String soldItemsForm(@PathVariable Long id, Model model, Principal principal){
+
+        AuctionProduct auctionProduct = auctionProductDetailService.findById(id);
+        Login login = loginDetailsService.findUserByUsername(principal.getName());
+
+        login.setMoney(login.getMoney() + auctionProduct.getPrice());
+
+        login.deleteById(id);
+        loginDetailsService.update(login);
+
+        return "redirect:/user/items";
+    }
+
 }

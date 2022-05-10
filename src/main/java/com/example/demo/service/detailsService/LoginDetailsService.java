@@ -1,5 +1,6 @@
 package com.example.demo.service.detailsService;
 
+import com.example.demo.model.Auction.AuctionProduct;
 import com.example.demo.model.Login;
 import com.example.demo.repo.LoginRepository;
 import com.example.demo.service.details.LoginDetails;
@@ -52,6 +53,8 @@ public class LoginDetailsService implements UserDetailsService {
             System.err.println("User not found");
         }
     }
+
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

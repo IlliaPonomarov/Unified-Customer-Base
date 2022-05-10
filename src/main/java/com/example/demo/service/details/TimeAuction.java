@@ -12,8 +12,6 @@ public class TimeAuction {
 
         String current = String.valueOf(Instant.now()).substring(0, 16);
 
-
-
         return current.compareTo(auctionDate);
 
     }
