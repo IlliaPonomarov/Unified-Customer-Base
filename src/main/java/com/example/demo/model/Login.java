@@ -45,6 +45,9 @@ public class Login implements Serializable, ValidationUser {
     Set<AuctionProduct> auctionProducts = new HashSet<>();
 
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "auction_id")
+    List<AuctionProduct> soldProducts = new ArrayList<>();
 
 
     public Set<AuctionProduct> getAuctionProducts() {
