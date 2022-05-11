@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Properties;
 
 
-public class SendEmail {
+public class Emails {
 
     private static EmailAccount emailAccount;
 

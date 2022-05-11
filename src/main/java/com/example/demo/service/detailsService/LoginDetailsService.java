@@ -25,16 +25,28 @@ public class LoginDetailsService implements UserDetailsService, SerializationUse
         this.loginRepository = loginRepository;
     }
 
+    /**
+     * Updating the user in the database
+     * @param newUser
+     */
     public void update(Login newUser){
         loginRepository.save(newUser);
     }
 
+
+    /**
+     * Deleting the user in the database
+     * @param user
+     */
     public void delete(Login user){
         loginRepository.delete(user);
     }
 
 
-
+    /**
+     * Adding the user in the database
+     * @param entity
+     */
     public void save(Login entity) {
 
         serialization(new File("persons.json"), entity);
@@ -42,7 +54,12 @@ public class LoginDetailsService implements UserDetailsService, SerializationUse
     }
 
 
-
+    /**
+     * Load from database by nickname
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -54,6 +71,11 @@ public class LoginDetailsService implements UserDetailsService, SerializationUse
         return new LoginDetails(login);
     }
 
+    /**
+     * Search by username
+     * @param username
+     * @return
+     */
     public Login findUserByUsername(String username){
 
         Login login = loginRepository.findByUsername(username);
@@ -65,22 +87,17 @@ public class LoginDetailsService implements UserDetailsService, SerializationUse
     }
 
 
+    /**
+     * Getting all users from the database
+     * @return
+     */
     public List<Login> findAll(){
         List<Login> logins = new ArrayList<>();
-        loginRepository.findAll().forEach(index -> {
-           
-            logins.add(index);
-        });
+        loginRepository.findAll().forEach(index -> { logins.add(index);});
 
         return logins;
     }
 
 
-    public boolean check(Login login){
-        if (login.getRole().equals("ROLE_ADMIN"))
-            return true;
-
-        return false;
-    }
 
 }

@@ -17,6 +17,11 @@ public class FactoryAuctionProduct extends Factory {
     }
 
     @Override
+    public void buy() {
+
+    }
+
+    @Override
     public Product getObject() {
         return auctionProduct;
     }

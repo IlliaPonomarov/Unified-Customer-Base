@@ -24,6 +24,12 @@ public class RegistrationController {
         this.loginDetailsService = loginDetailsService;
     }
 
+    /**
+     *The method returns the registration form, and serializes the new user into a json file
+     * @param model
+     * @return
+     * @throws IOException
+     */
     @GetMapping("/add")
     public String registrationForm(Model model) throws IOException {
 
@@ -44,6 +50,13 @@ public class RegistrationController {
         return "registrationController/registration";
     }
 
+    /**
+     * The method adds a new registered user to the database
+     *
+     * @param login
+     * @param model
+     * @return
+     */
     @PostMapping("/add")
     public String registrationSubmit(@ModelAttribute Login login, Model model){
 

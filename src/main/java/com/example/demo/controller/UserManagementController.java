@@ -41,6 +41,11 @@ public class UserManagementController {
     }
 
 
+    /**
+     *Getting a form to add a new auction
+     * @param model
+     * @return
+     */
     @GetMapping("/add-section")
     public String addActionForm(Model model){
 
@@ -53,6 +58,14 @@ public class UserManagementController {
         return "/adminController/userManagementController/addAction";
     }
 
+    /**
+     *Adding a new auction to the database
+     * @param auctionProduct
+     * @param model
+     * @param multipartFile
+     * @return
+     * @throws IOException
+     */
     @PostMapping("/add-section")
     public String addActionSubmit(@ModelAttribute AuctionProduct auctionProduct,
                                   Model model,
@@ -91,6 +104,11 @@ public class UserManagementController {
     }
 
 
+    /**
+     *
+     * @param model
+     * @return
+     */
 
     @GetMapping("/add")
     public String userForm(Model model){
@@ -98,6 +116,12 @@ public class UserManagementController {
         return "/adminController/userManagementController/addUser";
     }
 
+    /**
+     *Add a new user to the database
+     * @param login
+     * @param model
+     * @return
+     */
     @PostMapping("/add")
     public String userSubmit(@ModelAttribute Login login, Model model){
 
@@ -106,6 +130,11 @@ public class UserManagementController {
         return "/adminController/userManagementController/addUser";
     }
 
+    /**
+     * List all registered users
+     * @param model
+     * @return
+     */
     @GetMapping("/all")
     public String allPersons(Model model) {
         model.addAttribute("users", loginDetailsService.findAll());

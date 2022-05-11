@@ -32,6 +32,11 @@ public class AdminController {
         this.loginRepository = loginRepository;
     }
 
+
+    /**
+     *
+     * The method displays information about the current user.
+     */
     @GetMapping("/about")
     public String about(Model model, Principal principal){
 
@@ -49,7 +54,10 @@ public class AdminController {
         return "adminController/about";
     }
 
-
+    /**
+     *
+     * Redirects the page for user management
+     */
     @GetMapping("/usermg")
     public String userManagement(){
 
@@ -57,6 +65,12 @@ public class AdminController {
 
         return "adminController/userManagementController/mainUserMG";
     }
+
+    /**
+     *
+     * @param model
+     * @return
+     */
 
     @GetMapping("/")
     public String test(Model model){

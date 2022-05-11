@@ -19,6 +19,11 @@ public class SimpleProduct extends com.example.demo.model.Auction.Product implem
     public SimpleProduct(){}
 
     @Override
+    public void buy() {
+
+    }
+
+    @Override
     public SimpleProduct getObject() {
         return this;
     }

@@ -2,11 +2,9 @@ package com.example.demo.model.Auction;
 
 
 import com.example.demo.model.Login;
-import com.example.demo.service.Email.SendEmail;
 import com.example.demo.service.EventManager.NotifyUpdate;
 import com.example.demo.service.EventManager.Observerable;
 import com.example.demo.service.Product;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.mail.MessagingException;
@@ -48,11 +46,25 @@ public class AuctionProduct
         this.participantsAuction = participantsAuction;
     }
 
+
+    public AuctionProduct(Double finishPrice, String finishDate) {
+        this.finishPrice = finishPrice;
+        this.finishDate = finishDate;
+    }
+
+
+    /**
+     *  The method iterates over all elements with participantsAuction
+     */
     public void iterate(){
         for (Map.Entry<Double, Login> part: this.participantsAuction.entrySet())
             System.out.println(part.getKey() + " : " + part.getValue());
     }
 
+    /**
+     *
+     * Metro picks up the last element from participantsAuction
+     */
     public Map.Entry<Double, Login> lastElement(){
 
         final  long count = participantsAuction.entrySet().stream().count();
@@ -67,17 +79,15 @@ public class AuctionProduct
         return participantsAuction.entrySet().stream().skip(count - 1).findFirst().get();
     }
 
-    public AuctionProduct(Double finishPrice, String finishDate) {
-        this.finishPrice = finishPrice;
-        this.finishDate = finishDate;
-    }
 
-
-
-
-    // Написать: логику для ставки нового пользователя
     // Add user to auction
 
+    /**
+     *The method adds a new user to the Auction,
+     * and sends emails to all participants about the price change.
+     * @param bitten
+     * @param login
+     */
     @Override
     public void subscribeToAuction(Double bitten, Login login) {
 
@@ -93,7 +103,12 @@ public class AuctionProduct
 
     }
 
-    // Написать: проверить ставку пользователя, изменить состояние для всех пользователей
+
+    /**
+     *The method removes a new user from the Auction,
+     * and sends all participants Emails about the price change.
+     * @param login
+     */
     @Override
     public void unsubscribeToAuction(Login login) {
         participantsAuction.remove(login);
@@ -104,34 +119,18 @@ public class AuctionProduct
         }
     }
 
+
+    /**
+     * Sends mail to all users
+     * @throws MessagingException
+     */
+
     @Override
     public void notifyAuction() throws MessagingException {
-
-        Set<String> emails = new HashSet<>();
         update(this, participantsAuction);
-//        if (participantsAuction.size() != 0) {
-//            for (Map.Entry<Double, Login> email : participantsAuction.entrySet())
-//                if (email.getValue().getEmail() != null)
-//                    emails.add(email.getValue().getEmail());
-//
-//            emails.forEach(email -> {
-//                try {
-//                    SendEmail.sendEmails(email, this);
-//                    System.out.println(email);
-//                } catch (MessagingException e) {
-//                    e.printStackTrace();
-//                }
-//            });
-//
-//        }
-//        for (Map.Entry<Double, Login> part : participantsAuction.entrySet())
-//            if (part.getValue().getEmail() != null) {
-//                SendEmail.sendEmails(part.getValue().getEmail(), this);
-//                System.out.println(part.getValue().getEmail());
-//            }
     }
 
-    ////
+
 
     // Getters / Setters
 
@@ -162,6 +161,16 @@ public class AuctionProduct
 
     public void setParticipantsAuction(Map<Double, Login> participantsAuction) {
         this.participantsAuction = participantsAuction;
+    }
+
+    @Override
+    public void setPrice(Double money) {
+         this.finishPrice = money;
+    }
+
+    @Override
+    public void buy() {
+
     }
 
     @Override

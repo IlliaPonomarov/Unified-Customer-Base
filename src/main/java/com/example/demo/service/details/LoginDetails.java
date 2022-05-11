@@ -17,6 +17,10 @@ public class LoginDetails implements UserDetails{
     private String email;
     private List<GrantedAuthority> authorities;
 
+    /**
+     * The constructor sets login permissions
+     * @param user
+     */
     public LoginDetails(Login user) {
         this.login = user;
         this.userName = user.getUsername();

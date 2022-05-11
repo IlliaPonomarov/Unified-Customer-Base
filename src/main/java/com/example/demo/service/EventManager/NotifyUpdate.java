@@ -2,7 +2,7 @@ package com.example.demo.service.EventManager;
 
 import com.example.demo.model.Auction.AuctionProduct;
 import com.example.demo.model.Login;
-import com.example.demo.service.Email.SendEmail;
+import com.example.demo.service.Email.Emails;
 
 import javax.mail.MessagingException;
 import java.util.HashSet;
@@ -11,6 +11,13 @@ import java.util.Set;
 
 public interface NotifyUpdate {
 
+    /**
+     * The interface implements a default method for update to send mail
+     *
+     * (Used for the Observer pattern)
+     * @param auctionProduct
+     * @param participantsAuction
+     */
     default void update(AuctionProduct auctionProduct, Map<Double, Login> participantsAuction){
         Set<String> emails = new HashSet<>();
 
@@ -21,7 +28,7 @@ public interface NotifyUpdate {
 
             emails.forEach(email -> {
                 try {
-                    SendEmail.sendEmails(email, auctionProduct);
+                    Emails.sendEmails(email, auctionProduct);
                     System.out.println(email);
                 } catch (MessagingException e) {
                     e.printStackTrace();

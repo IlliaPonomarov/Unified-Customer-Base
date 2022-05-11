@@ -22,6 +22,11 @@ public class FactorySimpleProduct extends Factory {
     }
 
     @Override
+    public void buy() {
+
+    }
+
+    @Override
     public SimpleProduct getObject() {
         return simpleProduct;
     }

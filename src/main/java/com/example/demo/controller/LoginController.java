@@ -17,6 +17,7 @@ public class LoginController {
 
     private LoginDetailsService loginDetailsService;
 
+
     @Autowired
     public LoginController(LoginDetailsService loginDetailsService) {
         this.loginDetailsService = loginDetailsService;
@@ -24,35 +25,34 @@ public class LoginController {
 
     private Login login = null;
 
-
+    /**
+     *
+     * Redirects to user page
+     */
     //login
     @GetMapping("/user")
     public String user() {
         return ("redirect:/user/");
     }
 
+    /**
+     *
+     * Redirects to login page
+     */
     @GetMapping("/login")
-    public String login(Principal principal) {
+    public String login() {
 
         return ("loginController/login");
     }
 
+    /**
+     *
+     * Redirects to admin page
+     */
     //admin
     @GetMapping("/admin")
     public String admin() {
         return "adminController/adminPage";
     }
 
-
-
-    //registration
-
-    private boolean isAuthenticated() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || AnonymousAuthenticationToken.class.
-                isAssignableFrom(authentication.getClass())) {
-            return false;
-        }
-        return authentication.isAuthenticated();
-    }
 }

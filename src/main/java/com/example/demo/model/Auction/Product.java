@@ -5,9 +5,6 @@ import javax.persistence.*;
 @MappedSuperclass
 public  class Product {
 
-
-
-
     @Column(name = "name")
     private String name;
 
@@ -19,6 +16,7 @@ public  class Product {
 
     @Column(name = "price")
     private Double price;
+
 
     public Product(){}
 
@@ -52,6 +50,6 @@ public  class Product {
     }
 
     public void setPrice(Double price) {
-        this.price = price;
+            this.price = price;
     }
 }

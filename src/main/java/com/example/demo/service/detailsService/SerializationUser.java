@@ -7,6 +7,9 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.File;
 
 public class SerializationUser {
+    /**
+     * The nested interface contains a default method for basic serialization of the Login object.
+     */
     protected interface SerializationOneImplementation{
         default void serialization(File file, Login entity){
             if (entity.validfoUsername(entity.getUsername())) {

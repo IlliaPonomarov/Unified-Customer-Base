@@ -20,17 +20,34 @@ public class AuctionProductDetailService {
     }
 
 
+    /**
+     * Adding an auction to the database
+     * @param auctionProduct
+     */
     public void save(AuctionProduct auctionProduct){
         auctionProductRepository.save(auctionProduct);
     }
 
+    /**
+     * Deleting an auction to the database
+     * @param auctionProduct
+     */
     public void delete(AuctionProduct auctionProduct){
         auctionProductRepository.delete(auctionProduct);
     }
 
+    /**
+     * Updating the auction in the database
+     * @param newAuction
+     */
     public void update(AuctionProduct newAuction){
         auctionProductRepository.save(newAuction);
     }
+
+    /**
+     * Getting all auctions from the database
+     * @return
+     */
 
     public List<AuctionProduct> findAll(){
         List<AuctionProduct>  list = new ArrayList<>();
@@ -42,7 +59,11 @@ public class AuctionProductDetailService {
         return list;
     }
 
-
+    /**
+     * Getting auctions by id from the database
+     * @param id
+     * @return
+     */
     public AuctionProduct findById(Long id){
 
         if (auctionProductRepository.findById(id).isPresent())

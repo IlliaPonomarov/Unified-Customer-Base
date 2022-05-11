@@ -16,6 +16,10 @@ public class SimpleProductDetailService {
         this.simpleProductRepository = simpleProductRepository;
     }
 
+    /**
+     * Saving a regular product to the database
+     * @param simpleProduct
+     */
     public void save(SimpleProduct simpleProduct){
         simpleProductRepository.save(simpleProduct);
     }

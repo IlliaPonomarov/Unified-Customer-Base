@@ -38,31 +38,29 @@ public class Login implements Serializable, ValidationUser {
     @Column(name = "role")
     private String role;
 
+    /**
+     * List of auctions in which the current user participates
+     */
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "auction_ta",
     joinColumns = @JoinColumn(name = "person_id"),
     inverseJoinColumns = @JoinColumn(name = "auction_id"))
     Set<AuctionProduct> auctionProducts = new HashSet<>();
 
+    /**
+     * Array of items sold
+     */
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "sold", joinColumns = @JoinColumn(name = "auction_id"))
     Set<AuctionProduct> soldProducts = new HashSet<>();
 
-
-    public Set<AuctionProduct> getAuctionProducts() {
-        return auctionProducts;
-    }
-
-    public void setAuctionProducts(Set<AuctionProduct> auctionProducts) {
-        this.auctionProducts = auctionProducts;
-    }
+    private String confrimPassword;
 
     public Login(Set<AuctionProduct> auctionProducts) {
         this.auctionProducts = auctionProducts;
     }
 
-    private String confrimPassword;
 
     public Login(){}
 
@@ -74,6 +72,13 @@ public class Login implements Serializable, ValidationUser {
         this.role = role;
     }
 
+    public Set<AuctionProduct> getAuctionProducts() {
+        return auctionProducts;
+    }
+
+    public void setAuctionProducts(Set<AuctionProduct> auctionProducts) {
+        this.auctionProducts = auctionProducts;
+    }
 
     public Double getMoney() {
         return money;

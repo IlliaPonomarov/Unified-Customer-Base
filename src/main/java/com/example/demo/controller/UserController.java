@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 
 import com.example.demo.model.Auction.AuctionProduct;
+import com.example.demo.model.Auction.Product;
 import com.example.demo.model.Login;
 import com.example.demo.service.details.TimeAuction;
 import com.example.demo.service.detailsService.AuctionProductDetailService;
@@ -26,6 +27,12 @@ public class UserController {
 
     private List<Long> finishDate = new ArrayList<>();
 
+    /**
+     * The main page of the site, where all auctions are located
+     * @param model
+     * @param principal
+     * @return
+     */
     @GetMapping("/")
     public String userPage(Model model, Principal principal){
 
@@ -49,6 +56,15 @@ public class UserController {
         return "userController/index";
     }
 
+    /**
+     * Jump to the selected auction by id
+     *
+     * @param id
+     * @param model
+     * @param principal
+     * @return
+     * @throws ParseException
+     */
     @GetMapping("/product/{id}")
     public String product(@PathVariable Long id, Model model, Principal principal) throws ParseException {
 
@@ -62,6 +78,7 @@ public class UserController {
             model.addAttribute("lastUser", "No one participated in the auction!");
 
 
+
         model.addAttribute("endDate", currentAuction.getFinishDate());
         model.addAttribute("item", currentAuction);
         model.addAttribute("currentUser", loginDetailsService.findUserByUsername(principal.getName()));
@@ -71,6 +88,15 @@ public class UserController {
     }
 
 
+    /**
+     * Participation in the auction, and setting a new price for the goods
+     *
+     * @param newPrice
+     * @param id
+     * @param principal
+     * @param model
+     * @return
+     */
     @PostMapping("/product/{id}")
     public String productSetPrice(@RequestParam("newPrice") Double newPrice,
                                   @PathVariable Long id,
@@ -91,14 +117,12 @@ public class UserController {
             loginDetailsService.update(currentUser);
 
             // set new price for current product`
-            auctionProduct.setPrice(newPrice);
+            auctionProduct.setFinishPrice(newPrice);
+            double price = auctionProduct.getFinishPrice();
+            System.out.println(auctionProduct.getPrice());
 
             // Update price for current product
             auctionProductDetailService.update(auctionProduct);
-
-
-            // Уведомить всех поользователей об изменении цены.
-            //Если участник не учасвисовал в аукционе, то добавить и оповестить всех пользователей.
 
 
                 auctionProduct.subscribeToAuction(newPrice, currentUser);
