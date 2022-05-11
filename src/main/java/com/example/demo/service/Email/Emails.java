@@ -1,6 +1,7 @@
 package com.example.demo.service.Email;
 
 import com.example.demo.model.Auction.AuctionProduct;
+import com.example.demo.model.Auction.Product;
 
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -48,9 +49,16 @@ public class SendEmail {
         return session;
     }
 
-    public static void sendEmails(String emails, AuctionProduct auctionProduct) throws MessagingException {
+    public static void sendEmails(String emails, Product auctionProduct) throws MessagingException {
 
 
+        if (auctionProduct.getClass().getSimpleName().equals("AuctionProduct")) {
+            sendInformationAboutAuction((AuctionProduct) auctionProduct);
+        }
+
+    }
+
+    private static void sendInformationAboutAuction(AuctionProduct auctionProduct) throws MessagingException {
         Session session = properties();
 
         Message message = new MimeMessage(session);
@@ -73,6 +81,6 @@ public class SendEmail {
         message.setContent(multipart);
 
         Transport.send(message);
-
     }
+
 }
