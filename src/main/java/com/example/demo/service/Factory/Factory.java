@@ -10,9 +10,6 @@ public abstract class Factory implements Product {
 
   public abstract Product createActionProduct();
 
-
-
-
   @Override
   public Product getObject() {
     return this;

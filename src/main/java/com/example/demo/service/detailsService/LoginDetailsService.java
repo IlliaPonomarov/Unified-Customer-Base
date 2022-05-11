@@ -16,7 +16,7 @@ import java.io.File;
 import java.util.*;
 
 @Service
-public class LoginDetailsService implements UserDetailsService {
+public class LoginDetailsService implements UserDetailsService, SerializationUser.SerializationOneImplementation {
 
     @Autowired
     private LoginRepository loginRepository;
@@ -33,25 +33,12 @@ public class LoginDetailsService implements UserDetailsService {
         loginRepository.delete(user);
     }
 
+
+
     public void save(Login entity) {
 
-        if (entity.validfoUsername(entity.getUsername())) {
-
-            try {
-                ObjectMapper mapper = new ObjectMapper();
-                mapper.configure(SerializationFeature.FAIL_ON_SELF_REFERENCES, false);
-                mapper.writeValue(new File("persons.json"), entity);
-
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-
-            loginRepository.save(entity);
-        }
-        else
-        {
-            System.err.println("User not found");
-        }
+        serialization(new File("persons.json"), entity);
+       loginRepository.save(entity);
     }
 
 

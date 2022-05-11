@@ -28,10 +28,12 @@ public class UserController {
 
     @GetMapping("/")
     public String userPage(Model model, Principal principal){
+
         Login user = loginDetailsService.findUserByUsername(principal.getName());
         finishDate = TimeAuction.compareTimeOfAllProducts(auctionProductDetailService.findAll());
 
-        if (finishDate.size() > 0)
+        System.out.println("Finish: " + finishDate.getClass().getSimpleName());
+        if (finishDate.size() > 0 )
             finishDate.forEach(index -> {
                 AuctionProduct obj = auctionProductDetailService.findById(index);
                 user.getAuctionProducts().remove(obj);
@@ -79,9 +81,11 @@ public class UserController {
         Login currentUser = loginDetailsService.findUserByUsername(principal.getName());
         AuctionProduct auctionProduct = auctionProductDetailService.findById(id);
 
+        Double oldPrice = auctionProduct.getPrice();
 
 
-        if (currentUser.getMoney() >= auctionProduct.getPrice()) {
+
+        if (currentUser.getMoney() >= oldPrice && oldPrice < newPrice) {
 
             // Update information about current user
             loginDetailsService.update(currentUser);
@@ -106,7 +110,7 @@ public class UserController {
                 auctionProduct.iterate();
         }
         else {
-            model.addAttribute("errorMessage", "You have less money then price of this product");
+            return "redirect:/user/product/" + id;
         }
 
         return "redirect:/user";

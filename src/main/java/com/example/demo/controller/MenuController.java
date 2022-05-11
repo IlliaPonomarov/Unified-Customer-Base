@@ -35,10 +35,8 @@ public class MenuController {
         Login user = loginDetailsService.findUserByUsername(principal.getName());
         model.addAttribute("user", user);
 
-        Long id = 53L;
+        Long id = 62L;
         AuctionProduct auctionProduct = auctionProductDetailService.findById(id);
-
-        user.getSoldProducts().remove(auctionProduct);
 
         model.addAttribute("items", user.getSoldProducts());
 

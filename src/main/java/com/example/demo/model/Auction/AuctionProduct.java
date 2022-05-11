@@ -3,6 +3,7 @@ package com.example.demo.model.Auction;
 
 import com.example.demo.model.Login;
 import com.example.demo.service.Email.SendEmail;
+import com.example.demo.service.EventManager.NotifyUpdate;
 import com.example.demo.service.EventManager.Observerable;
 import com.example.demo.service.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import java.util.*;
 @Component
 public class AuctionProduct
         extends com.example.demo.model.Auction.Product
-        implements Product, Observerable {
+        implements Product, Observerable, NotifyUpdate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -71,10 +72,7 @@ public class AuctionProduct
         this.finishDate = finishDate;
     }
 
-    public void errorMoney(Login login){
-    }
 
-    //Observer, add, remove, notify
 
 
     // Написать: логику для ставки нового пользователя
@@ -110,22 +108,22 @@ public class AuctionProduct
     public void notifyAuction() throws MessagingException {
 
         Set<String> emails = new HashSet<>();
-
-        if (participantsAuction.size() != 0) {
-            for (Map.Entry<Double, Login> email : participantsAuction.entrySet())
-                if (email.getValue().getEmail() != null)
-                    emails.add(email.getValue().getEmail());
-
-            emails.forEach(email -> {
-                try {
-                    SendEmail.sendEmails(email, this);
-                    System.out.println(email);
-                } catch (MessagingException e) {
-                    e.printStackTrace();
-                }
-            });
-
-        }
+        update(this, participantsAuction);
+//        if (participantsAuction.size() != 0) {
+//            for (Map.Entry<Double, Login> email : participantsAuction.entrySet())
+//                if (email.getValue().getEmail() != null)
+//                    emails.add(email.getValue().getEmail());
+//
+//            emails.forEach(email -> {
+//                try {
+//                    SendEmail.sendEmails(email, this);
+//                    System.out.println(email);
+//                } catch (MessagingException e) {
+//                    e.printStackTrace();
+//                }
+//            });
+//
+//        }
 //        for (Map.Entry<Double, Login> part : participantsAuction.entrySet())
 //            if (part.getValue().getEmail() != null) {
 //                SendEmail.sendEmails(part.getValue().getEmail(), this);
